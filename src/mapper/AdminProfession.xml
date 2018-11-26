@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.takia.dao.admin.AdminProfessionDao">
+    <!--查询一共多少条数据-->
+    <select id="count" resultType="int">
+        select count(*) from professional_info
+    </select>
+    <!--查询列表-->
+    <select id="loadProfession" parameterType="int" resultType="cn.takia.entity.Profession">
+        select * from professional_info limit #{currPage},#{pageSize}
+    </select>
+    <!--模糊查询专业名字-->
+    <select id="searchProInfo" resultType="cn.takia.entity.Profession" parameterType="string">
+        select * from professional_info where p_name like '%' #{p_name} '%'
+    </select>
+    <!--更新专业信息-->
+    <update id="modifyProInfo" parameterType="cn.takia.entity.Profession">
+        update professional_info set
+            p_name=#{p_name}
+            where p_id=#{p_id}
+    </update>
+    <!--删除专业信息-->
+    <delete id="deleteProInfo" parameterType="int">
+        delete from professional_info where p_id=#{p_id}
+    </delete>
+    <!--增加专业-->
+    <insert id="addProInfo" parameterType="string">
+        insert into professional_info (
+            p_name)
+        values (
+            #{p_name}
+        )
+    </insert>
+    <!--查重-->
+    <select id="proRepeat" parameterType="string" resultType="int">
+        select count(*) from professional_info where p_name=#{p_name}
+    </select>
+</mapper>

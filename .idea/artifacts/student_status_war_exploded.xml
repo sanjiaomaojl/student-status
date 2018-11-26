@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="student-status:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/student_status_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="student-status" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="lib" />
+          <element id="library" level="project" name="lib1" />
+          <element id="library" level="module" name="JUnit4" module-name="student-status" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="student-status/web/Web" />
+    </root>
+  </artifact>
+</component>

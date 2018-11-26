@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.takia.dao.admin.AdminUserDao">
+    <!--分页查询用户管理-->
+    <select id="loadAdminList" parameterType="int" resultType="cn.takia.entity.AdminUser">
+        select * from userinfo limit #{currPage},#{pageSize}
+    </select>
+    <!--查询多少条数据-->
+    <select id="count" resultType="int">
+        select count(*) from userinfo
+    </select>
+    <!--修改用户信息-->
+    <update id="modifyAdminInfo" parameterType="cn.takia.entity.AdminUser">
+        update userinfo set
+            user_name=#{user_name},
+            contacts=#{contacts},
+            tel=#{tel},
+            address=#{address},
+            role=#{role}
+            where user_id=#{user_id}
+    </update>
+    <!--删除用户信息-->
+    <delete id="deleteAdminInfo" parameterType="string">
+        delete from userinfo where user_id=#{user_id}
+    </delete>
+    <!--增加用户信息-->
+    <insert id="addAdminInfo" parameterType="cn.takia.entity.AdminUser">
+        insert into userinfo (
+            user_name,
+            contacts,
+            tel,
+            address,
+            role)
+        values (
+            #{user_name},
+            #{contacts},
+            #{tel},
+            #{address},
+            #{role}
+        )
+    </insert>
+    <!--查询用户信息-->
+    <select id="searchAdminInfo" parameterType="string" resultType="cn.takia.entity.AdminUser">
+        select * from userinfo where contacts=#{contacts}
+    </select>
+    <!--根据用户信息查询的数量-->
+    <select id="searchAdminInfoCount" resultType="int" parameterType="string">
+        select count(*) from userinfo where contacts=#{contacts}
+    </select>
+</mapper>    

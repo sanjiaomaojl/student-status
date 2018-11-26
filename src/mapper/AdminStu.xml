@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="cn.takia.dao.admin.AdminStuDao">
+    <!--查询一共多少条数据-->
+    <select id="count" resultType="int">
+        select count(*) from stu_info
+    </select>
+    <!--查询列表-->
+    <select id="loadStu" parameterType="int" resultType="cn.takia.entity.Student">
+        select * from stu_info limit #{currPage},#{pageSize}
+    </select>
+    <!--删除学生信息-->
+    <delete id="deleteStuInfo" parameterType="int">
+        delete from stu_info where stu_id=#{stu_id}
+    </delete>
+    <!--增加新学生-->
+    <insert id="addStuInfo" parameterType="cn.takia.entity.Student">
+        insert into stu_info (
+          stu_name, stu_num, stu_bir, stu_pro, stu_university, stu_city, stu_photo, stu_from
+        ) values (
+          #{stu_name},#{stu_num},#{stu_bir},#{stu_pro},#{stu_university},
+          #{stu_city},#{stu_photo},#{stu_from}
+        )
+    </insert>
+    <!--修改学生信息-->
+    <update id="modifyAdminInfo" parameterType="cn.takia.entity.Student">
+        update stu_info set
+        stu_name=#{stu_name}, stu_num=#{stu_num}, stu_bir=#{stu_bir}, stu_pro=#{stu_pro},
+        stu_university=#{stu_university}, stu_city=#{stu_city}, stu_photo=#{stu_photo},
+        stu_from=#{stu_from}
+        where stu_id=#{stu_id}
+    </update>
+</mapper>    

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>后台管理</title>
+<link href="/css/login.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="login_box">
+      <div class="login_l_img"><img src="images/login-img.png" /></div>
+      <div class="login">
+          <div class="login_logo"><a href="#"><img src="images/login_logo.png" /></a></div>
+          <div class="login_name">
+               <p>学籍管理系统</p>
+          </div>
+              <input id="username" name="username" type="text" placeholder="用户名"/>
+              <input id="password" name="password" type="password" placeholder="密码"/>
+              <input id="login" value="登录" style="width:100%;" type="button">
+      </div>
+</div>
+</body>
+<script src="/js/cookie_util.js"></script>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/base.js"></script>
+<script>
+    $(function(){
+        $("#login").click(function () {
+            var username = $("#username").val().trim();
+            var password = $("#password").val().trim();
+            $.ajax({
+                url:path+"/user/login.do",
+                type:"post",
+                data:{"username":username,"password":password},
+                dataType:"json",
+                success:function (result) {
+                    if(result.status == 0){
+                        /*获取用户名*/
+                        var login_name = result.data.login_name;
+                        addCookie("login_name",login_name,1)
+                        /*判断角色的值，进入不同的界面*/
+                        if(result.data.role == 0){
+                            window.location.href = "html/admin/top.html";
+                        }
+                        if(result.data.role == 1){
+                            window.location.href = "html/province/success.html";
+                        }
+                        if(result.data.role == 2){
+                            window.location.href = "html/city/success.html";
+                        }
+                        if(result.data.role == 3){
+                            window.location.href = "html/school/success.html";
+                        }
+                    }else {
+                        alert(result.msg);
+                    }
+                },
+                error:function () {
+                    alert("登录失败");
+                }
+            });
+        });
+    });
+</script>
+</html>

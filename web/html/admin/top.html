@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>系统后台</title>
+    <!-- 引入bootstrap -->
+    <link rel="stylesheet" href="../../css/bootstrap.css">
+    <!-- 引入JQuery  bootstrap.js-->
+    <!--<script src="/js/bootstrap.min.js"></script>-->
+</head>
+<body>
+<!--顶部-->
+<div class="container" id="top">
+<div class="row">
+    <div class="col-md-12">
+        <!--加入导航条标题-->
+        <div class="navbar navbar-default" role="navigation">
+            　<div class="navbar-header">
+            　    <a href="##" class="navbar-brand">教务信息查询系统(管理员)</a>
+            　</div>
+            <form action="##" class="navbar-form navbar-right" rol="search">
+                <div class="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" style="margin-right: 20px; ">
+                        <!--登录用户名-->
+                        <span id="linkA" class="glyphicon glyphicon-user"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                        <li role="presentation">
+                            <a role="menuitem" tabindex="-1" href="#">
+                                <span class="glyphicon glyphicon-cog pull-right"></span>
+                                修改个人信息
+                            </a>
+                        </li>
+                        <li role="presentation" class="divider"></li>
+                        <li role="presentation">
+                            <a id="logout" role="menuitem" tabindex="-1">
+                                <span class="glyphicon glyphicon-off pull-right"></span>
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</div>
+<!--下半部分-->
+<div class="container" id="content">
+    <div class="row">
+        <!--菜单-->
+        <div class="col-md-2">
+            <ul class="nav nav-pills nav-stacked" id="nav">
+                <li><a id="load_admin_list">用户管理</a></li>
+                <li><a id="load_professional">专业管理</a></li>
+                <li><a id="load_student_info">学生基本信息</a></li>
+                <li><a href="/admin/userPasswordRest">学籍注册</a></li>
+                <li><a href="/admin/passwordRest">学籍异动</a></li>
+                <li><a href="/logout">信息统计</a></li>
+                <li><a href="/admin/showTeacher">信息查询</a></li>
+                <li><a href="/admin/showTeacher">毕业审核</a></li>
+            </ul>
+        </div>
+        <!--主题-->
+        <div class="col-md-10" id="panel">
+            <!--欢迎登录-->
+            <img src="/images/welcome.jpg" height="400" width="950"/>
+            <!--主题内容区域-->
+<!--            <div class="panel panel-default" id="panel_default">
+                <div class="panel panel-default" id="panel_modify"></div>
+                <div class="panel-heading" id="panel_heading">
+                    &lt;!&ndash;加载面板头部信息&ndash;&gt;
+                </div>
+                <table class="table table-bordered">
+                    <thead id="admin_list_head">
+                    &lt;!&ndash;ajax加载表格的头部&ndash;&gt;
+                    </thead>
+                    <tbody id="admin_list">
+                    &lt;!&ndash;ajax加载表格的内容&ndash;&gt;
+                    </tbody>
+                </table>
+                <div class="panel-footer" id="page">
+                    &lt;!&ndash;分页&ndash;&gt;
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
+<script src="/js/jquery-3.2.1.min.js"></script>
+<script src="/js/cookie_util.js"></script>
+<script src="/js/base.js"></script>
+<script src="../../dist/distpicker.data.js"></script>
+<script src="../../dist/distpicker.js"></script>
+<script src="/js/admin/Panel.js"></script>
+<script src="/js/admin/adminUserList.js"></script>
+<script src="/js/admin/adminProfessional.js"></script>
+<script src="/js/admin/adminStuInfo.js"></script>
+<script>
+    $(function(){
+        //获取用户名
+        if (!getCookie("login_name")){
+            window.location.href = "../../login.html";
+        }else {
+            var login_name = getCookie("login_name");
+            $("#linkA").html('&nbsp;'+login_name);
+            $("#logout").click(function () {
+                delCookie("login_name");
+                window.location.href = "../../login.html";
+            });
+        };
+        //li点击增加样式
+        $("#nav li").click(function () {
+            $(this).addClass("active").siblings().removeClass("active");
+        });
+        //加载用户信息
+        $("#load_admin_list").click(loadUserList2);
+        //加载所有专业
+        $("#load_professional").click(loadProfessional);
+        //加载所有学生信息
+        $("#load_student_info").click(loadStuInfo);
+    });
+</script>
+
+</body>
+</html>
